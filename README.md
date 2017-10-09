@@ -1,5 +1,5 @@
 # uploadenc
-Writes client-uploaded files directly to Amazon S3, encrypting them to a given public key in the process.
+Writes client-uploaded files directly to Amazon S3, encrypting them to a given public key in the process. Works great for securely sending yourself personal pictures from your phone, for example.
 
 Overview:
 
