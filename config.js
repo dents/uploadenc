@@ -34,6 +34,9 @@ module.exports = {
     httpsCert: 'ssl-cert.pem',
     httpsCA: 'ssl-fullchain.pem',
 
+    listenPort: 443,
+    listenAddr: '0.0.0.0',
+    
     // user/group to use when running privileged to access low ports (i.e. sudo node server.js)
     processGID: 'www-data',
     processUID: 'www-data',
