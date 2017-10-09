@@ -19,3 +19,7 @@ __private.pem__ is to be kept in a secure place, preferrably completely offline.
 
 
 Needs at least Node v6.11 to work properly. Works fine on a Raspberry Pi, even with multi-GB file uploads.
+
+
+
+Use [decrypt-uploadenc](https://github.com/dents/decrypt-uploadenc) to decrypt these files after downloading them from S3.
