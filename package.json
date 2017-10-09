@@ -1,0 +1,33 @@
+{
+  "name": "uploadenc",
+  "version": "1.0.0",
+  "description": "Writes uploaded files directly to Amazon S3, encrypting them to a given public key in the process. Secure uploads without having to worry about having private keys on the server!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dents/uploadenc.git"
+  },
+  "keywords": [
+    "https",
+    "upload",
+    "s3",
+    "encryption",
+    "rsa",
+    "public",
+    "key"
+  ],
+  "author": "Denis Petrusenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dents/uploadenc/issues"
+  },
+  "homepage": "https://github.com/dents/uploadenc#readme",
+  "dependencies": {
+    "aws-sdk": "^2.130.0",
+    "moment": "^2.18.1"
+  }
+}
