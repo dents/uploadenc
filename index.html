@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload</title>
+    <meta charset="utf-8" />
+    <style>
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .inputfile+label {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            background-color: black;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .inputfile:focus+label,
+        .inputfile+label:hover {
+            background-color: red;
+        }
+
+        .inputfile:focus+label {
+            outline: 1px dotted #000;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        .inputfile+label * {
+            pointer-events: none;
+        }
+
+    </style>
+    <script>
+        function hookupMultiFormat() {
+            var inputs = document.querySelectorAll('.inputfile');
+            Array.prototype.forEach.call(inputs, function (input) {
+                var label = input.nextElementSibling,
+                    labelVal = label.innerHTML;
+
+                input.addEventListener('change', function (e) {
+                    var fileName = '';
+                    if (this.files && this.files.length > 1) {
+                        fileName = (this.getAttribute('data-many') || '')
+                            .replace('{count}', this.files.length);
+                    } else {
+                        fileName = e.target.value.split('\\').pop();
+                    }
+
+                    if (fileName) {
+                        label.querySelector('span').innerHTML = fileName;
+                    } else {
+                        label.innerHTML = labelVal;
+                    }
+                });
+            });
+        }
+
+    </script>
+</head>
+
+<body onLoad="hookupMultiFormat()">
+    <form method="post" action="upload.do" enctype="multipart/form-data">
+        <br />
+        <br />
+        <div align="center">
+            <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="multiple" class="inputfile" data-many="{count} files selected"
+            />
+            <label for="filesToUpload">
+                <font size=200>
+                    <center>
+                        <span>Press here to choose files to upload</span>
+                    </center>
+                </font>
+            </label>
+            <br />
+            <br />
+            <br />
+            <input type="submit" value="Upload" style="width:50%; height:200px">
+        </div>
+    </form>
+</body>
+
+</html>
