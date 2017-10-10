@@ -30,9 +30,10 @@ simpleMemoryStream.prototype._write = function (chunk, enc, cb) {
     }
 
     if (this.waiting) {
-        const keepPushing = this.push(this.buffer);
+        const prevBuffer = this.buffer;
+        this.buffer = null;
+        const keepPushing = this.push(prevBuffer); // may cause a read() now
         this.waiting = keepPushing;
-        this.buffer = null; // throw away what was read
     }
 
     cb();
@@ -46,9 +47,10 @@ simpleMemoryStream.prototype._read = function readBytes(n) {
 
     const chunkSize = Math.min(n, this.buffer.byteLength);
     if (chunkSize > 0) {
-        const keepPushing = this.push(this.buffer.slice(0, chunkSize));
-        this.waiting = keepPushing;
+        const pushData = this.buffer.slice(0, chunkSize);
         this.buffer = this.buffer.slice(chunkSize); // throw away what was read
+        const keepPushing = this.push(pushData);
+        this.waiting = keepPushing;
     } else {
         this.waiting = true;
     }
@@ -56,7 +58,7 @@ simpleMemoryStream.prototype._read = function readBytes(n) {
 
 simpleMemoryStream.prototype.finish = function () {
     if (this.buffer !== null) {
-        this.push(buffer);
+        this.push(this.buffer);
     }
 
     this.push(null);
